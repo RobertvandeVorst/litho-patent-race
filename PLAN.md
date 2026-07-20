@@ -249,6 +249,22 @@ lives in exactly one place (old `SectionNav` + `.next` removed).
 - Verified in headless Chrome: no horizontal overflow at 1600/1280/390px; build clean; no hardcoded
   figures in src/.
 
+## Stage 6g — Deploy polish (live) ✅ DONE
+- **Live:** https://litho-patent-race.vercel.app/ (README placeholder filled in).
+- **Glyph fix.** Space Mono / Archivo lack arrow & shape glyphs (→ ↓ ↑ ▲ ▼), so they rendered as
+  missing-glyph boxes. Appended symbol fallbacks (`'Segoe UI Symbol', 'Apple Symbols',
+  'Noto Sans Symbols2'`) to both `--font-mono` and `--font-display` so those chars fall back
+  per-glyph. Also changed the Key Findings pivot to read "1.3% to 31.2%" (headline robustness).
+  Verified in-browser: chips (▲ ■ →), rail (NEXT ↓ / TOP ↑), methods pipeline, and "SEE ↓" all render.
+- **Narrower content column.** `--maxw` 1180 → **1040px** so the labelled left rail appears at common
+  laptop widths. Recomputed the rail breakpoint: **labels from 1400px** (was 1540px); markers-only
+  720–1399px; top bar <720px. Verified: no overlap with the content column at any width; no horizontal
+  overflow at 1600/1440/1280/390px. Fig 3 matrix stays legible (41px cells at the narrower column —
+  not cramped, so no bleed needed); fig 1 right-hand labels still clear.
+- **Accessibility widget** floating at the right edge is **not from our code** (no such element in
+  `src/`; the only `position:fixed` elements are the tooltip and the left rail) — it's a browser
+  extension or the Vercel toolbar, so nothing to remove.
+
 ## Stage 7 — Deploy + writeup ⏭
 - [ ] Deploy to Vercel or GitHub Pages.
 - [ ] README case-study: the question, the stack, the pipeline, the findings, screenshots.

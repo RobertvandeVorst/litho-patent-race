@@ -23,11 +23,13 @@
   --ground-2: #eec876;
   --panel: #f6dca0;
 
-  --maxw: 1180px;
+  --maxw: 1040px;
   --gutter: 40px;
 
-  --font-display: 'Archivo', system-ui, sans-serif;
-  --font-mono: 'Space Mono', ui-monospace, 'Courier New', monospace;
+  /* Symbol fonts appended so arrows/shapes (→ ↓ ↑ ▲ ▼) that Space Mono/Archivo
+     lack fall back per-glyph instead of rendering as missing-glyph boxes. */
+  --font-display: 'Archivo', system-ui, 'Segoe UI Symbol', 'Apple Symbols', 'Noto Sans Symbols2', sans-serif;
+  --font-mono: 'Space Mono', ui-monospace, 'Segoe UI Symbol', 'Apple Symbols', 'Noto Sans Symbols2', 'Courier New', monospace;
 }
 
 * { box-sizing: border-box; }
@@ -191,7 +193,7 @@ body {
     top: 40px;
     /* positioned relative to the content column's left edge: right edge ~28px to
        its left. Clamped so it hugs the viewport edge when there's no margin. */
-    left: max(10px, calc((100vw - 1180px) / 2 - 42px));
+    left: max(10px, calc((100vw - 1040px) / 2 - 42px));
     z-index: 40;
     --rail-item: 46px;
   }
@@ -262,10 +264,11 @@ body {
   .rail { position: absolute; }
 }
 
-/* >=1540px: rail gains labels, right edge ~24-28px left of the content column
-   (labelled rail ≈150px, so this is the first width where it clears the column) */
-@media (min-width: 1540px) {
-  .rail { left: max(8px, calc((100vw - 1180px) / 2 - 176px)); }
+/* >=1400px: rail gains labels, right edge ~24-28px left of the content column.
+   With the 1040px column the outer margin is wide enough for the ≈150px labelled
+   rail from ~1400px up (was 1540px with the old 1180px column). */
+@media (min-width: 1400px) {
+  .rail { left: max(8px, calc((100vw - 1040px) / 2 - 176px)); }
   .rail__label {
     display: inline;
     font-family: var(--font-mono);

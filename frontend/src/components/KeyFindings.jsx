@@ -35,8 +35,8 @@ export default function KeyFindings({ kpis, pivot, leaderboard, euv }) {
       to: 'hero',
       text: (
         <>
-          <b>TSMC</b> pivoted hardest, {pct(P.TSMC.early_share_pct)} → {pct(P.TSMC.late_share_pct)};{' '}
-          <b>Canon</b> is the only retreat, {pct(P.Canon.early_share_pct)} → {pct(P.Canon.late_share_pct)}.
+          <b>TSMC</b> pivoted hardest, {pct(P.TSMC.early_share_pct)} to {pct(P.TSMC.late_share_pct)};{' '}
+          <b>Canon</b> is the only retreat, {pct(P.Canon.early_share_pct)} to {pct(P.Canon.late_share_pct)}.
         </>
       ),
     },

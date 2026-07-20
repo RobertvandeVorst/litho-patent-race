@@ -7,7 +7,7 @@ with light; the race to use ever-shorter wavelengths — culminating in **extrem
 patented what across CPC subclass **`G03F`** (microlithography), 2005–2025, and asks a
 sharp question: *who actually pivoted to EUV, and who did not?*
 
-**Live demo:** _coming soon_ — <!-- VERCEL_URL --> (deploying to Vercel)
+**Live demo:** **https://litho-patent-race.vercel.app/**
 
 ---
 
