@@ -128,8 +128,9 @@ export default function HeroSlope({ pivot }) {
             className={`chip-btn${selected === p.player ? ' is-active' : ''}`}
             aria-pressed={selected === p.player}
             onClick={() => setSelected(p.player)}
+            title={p.player}
           >
-            {p.player}
+            {shortLabel(p.player)}
           </button>
         ))}
       </div>

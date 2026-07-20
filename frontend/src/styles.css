@@ -428,18 +428,32 @@ body {
 .toggle__btn:focus-visible { outline: 0.1875rem solid var(--euv); outline-offset: 0.125rem; }
 
 /* player filter chips (fig 1) — wrap cleanly, never overflow */
-.chips { display: flex; flex-wrap: wrap; gap: 0.375rem; margin: 0 0 0.875rem; }
+/* One line, never wrapping. If the row is wider than its column (mobile), it
+   scrolls within itself so it can never push horizontal overflow onto the page.
+   Vertical padding keeps the focus ring from being clipped by overflow-x. */
+.chips {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.25rem;
+  margin: 0 0 0.75rem;
+  padding: 0.1875rem 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  min-width: 0; /* let the scroll container be narrower than its row (no page overflow) */
+}
 .chip-btn {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
-  padding: 0.3125rem 0.5625rem;
+  padding: 0.3125rem 0.4375rem;
   border: 0.0625rem solid var(--rule);
   background: transparent;
   color: var(--ink);
   cursor: pointer;
   white-space: nowrap;
+  flex: none;
 }
 .chip-btn.is-active { background: var(--euv); color: var(--ground); border-color: var(--euv); }
 .chip-btn:focus-visible { outline: 0.1875rem solid var(--euv); outline-offset: 0.125rem; }
@@ -457,6 +471,9 @@ body {
 
 /* ---------- layout helpers ---------- */
 .split { display: grid; grid-template-columns: 1fr; gap: 2.125rem; align-items: start; }
+/* let items shrink below their content min-content so the chip scroll-row and
+   figures can't blow the grid track wider than the viewport */
+.split > * { min-width: 0; }
 @media (min-width: 820px) {
   .split { grid-template-columns: 1.9fr 1fr; }
   .split--rail-left { grid-template-columns: 1fr 1.9fr; }
