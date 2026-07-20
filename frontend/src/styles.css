@@ -264,23 +264,25 @@ body {
   .rail { position: absolute; }
 }
 
-/* >=1400px: rail gains labels, right edge ~24-28px left of the content column.
-   With the 1040px column the outer margin is wide enough for the ≈150px labelled
-   rail from ~1400px up (was 1540px with the old 1180px column). */
-@media (min-width: 1400px) {
-  .rail { left: max(8px, calc((100vw - 1040px) / 2 - 176px)); }
+/* >=1200px: rail gains (abbreviated) labels. Anchored by its RIGHT edge to the
+   content's left edge: right edge sits ~16px left of the text/figures, so the rail
+   may sit over the page's left gutter/margin but NEVER over content. Column left
+   edge = (100vw - 1040)/2, text starts +40px gutter, so text-left = 0.5vw - 480;
+   right:calc(50vw + 496px) puts the rail's right edge 16px before it, at any width. */
+@media (min-width: 1200px) {
+  .rail { left: auto; right: calc(50vw + 496px); }
   .rail__label {
     display: inline;
     font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.1em;
+    font-size: 10px;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--muted);
     white-space: nowrap;
     transition: color 200ms ease;
   }
   .rail__item.is-active .rail__label { color: var(--ink); }
-  .rail__item { padding-right: 8px; }
+  .rail__item { gap: 10px; padding-right: 4px; }
   .rail__next-label { display: inline; }
 }
 

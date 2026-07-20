@@ -50,7 +50,8 @@ export default function SideRail({ items }) {
     }
   }
 
-  const label = (it) => (it.n ? `${it.n} · ${it.name}` : it.name)
+  const railLabel = (it) => (it.n ? `${it.n} · ${it.short || it.name}` : it.short || it.name)
+  const barLabel = (it) => (it.n ? `${it.n} · ${it.name}` : it.name)
 
   return (
     <>
@@ -73,7 +74,7 @@ export default function SideRail({ items }) {
                   onClick={() => go(it.id)}
                 >
                   <span className="rail__marker" aria-hidden="true" />
-                  <span className="rail__label">{label(it)}</span>
+                  <span className="rail__label">{railLabel(it)}</span>
                 </button>
               </li>
             ))}
@@ -103,7 +104,7 @@ export default function SideRail({ items }) {
                 aria-current={i === activeIndex ? 'true' : undefined}
                 onClick={() => go(it.id)}
               >
-                {label(it)}
+                {barLabel(it)}
               </button>
             </li>
           ))}

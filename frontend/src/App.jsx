@@ -13,11 +13,11 @@ import MethodsFooter from './components/MethodsFooter.jsx'
 import { pct, year, int } from './lib/format.js'
 
 const NAV = [
-  { id: 'hero', n: '1', name: 'Pivot' },
-  { id: 'measurement', n: '2', name: 'Measurement' },
-  { id: 'field', n: '3', name: 'Over time' },
-  { id: 'field-map', n: '4', name: 'The field' },
-  { id: 'methods', n: '', name: 'Methods' },
+  { id: 'hero', n: '1', name: 'Pivot', short: 'Pivot' },
+  { id: 'measurement', n: '2', name: 'Measurement', short: 'Measure' },
+  { id: 'field', n: '3', name: 'Over time', short: 'Time' },
+  { id: 'field-map', n: '4', name: 'The field', short: 'Field' },
+  { id: 'methods', n: '', name: 'Methods', short: 'Methods' },
 ]
 
 export default function App() {

@@ -265,6 +265,18 @@ lives in exactly one place (old `SectionNav` + `.next` removed).
   `src/`; the only `position:fixed` elements are the tooltip and the left rail) — it's a browser
   extension or the Vercel toolbar, so nothing to remove.
 
+## Stage 6h — Rail labels at laptop widths ✅ DONE
+The 1400px label threshold was still too high for scaled Windows laptops (innerWidth often 1280–1366;
+one report at 990). Changed the constraint from "rail fits entirely outside the 1040px column box" to
+"rail never overlaps actual content" — the rail may now sit over the page's left gutter/margin.
+- Rail's right edge anchored to the content's left edge via `right: calc(50vw + 496px)` — a constant
+  **16px gap** to the nearest text/figure at every width (checked against real element left edges, not
+  the column box).
+- **Label threshold lowered to 1200px**; labels **abbreviated** (Pivot / Measure / Time / Field /
+  Methods) at 10px so the rail fits without clipping. Markers-only 720–1199px; top bar <720px.
+- Verified: labels visible at 1200/1280/1366/1440/1600; gap = 16px at all; no content overlap; no
+  horizontal overflow; rail not clipped at the left edge (railLeft ≥ 5px at 1200).
+
 ## Stage 7 — Deploy + writeup ⏭
 - [ ] Deploy to Vercel or GitHub Pages.
 - [ ] README case-study: the question, the stack, the pipeline, the findings, screenshots.
