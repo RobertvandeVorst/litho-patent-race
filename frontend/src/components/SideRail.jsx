@@ -71,9 +71,11 @@ export default function SideRail({ items }) {
                   type="button"
                   className={`rail__item${i === activeIndex ? ' is-active' : ''}`}
                   aria-current={i === activeIndex ? 'true' : undefined}
+                  aria-label={barLabel(it)}
+                  title={barLabel(it)}
                   onClick={() => go(it.id)}
                 >
-                  <span className="rail__marker" aria-hidden="true" />
+                  <span className="rail__marker" aria-hidden="true" title={barLabel(it)} />
                   <span className="rail__label">{railLabel(it)}</span>
                 </button>
               </li>
@@ -102,6 +104,8 @@ export default function SideRail({ items }) {
                 type="button"
                 className={`topbar__link${i === activeIndex ? ' is-active' : ''}`}
                 aria-current={i === activeIndex ? 'true' : undefined}
+                aria-label={barLabel(it)}
+                title={barLabel(it)}
                 onClick={() => go(it.id)}
               >
                 {barLabel(it)}

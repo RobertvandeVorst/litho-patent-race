@@ -141,12 +141,15 @@ body {
 }
 
 /* ==========================================================================
-   Navigation — one surface. Mobile-first: a compact sticky top bar. At >=720px
-   a fixed left rail (markers only) replaces it; at >=1500px the rail gains
-   labels and sits in the wide outer margin, outside the 1180px content column.
+   Navigation — one surface, always labelled (no markers-only state).
+   Below 1200px: a sticky top bar with FULL section names (comfortably spaced
+   from ~720px up). At >=1200px: the fixed left rail with abbreviated labels,
+   which is the first width where a labelled rail clears the 1040px column
+   (below that the column fills the viewport with only the 40px gutter, so a
+   rail there would overlap the headings).
    ========================================================================== */
 
-/* mobile top bar */
+/* top bar — the nav for mobile AND the mid range (<1200px) */
 .rail { display: none; }
 .topbar {
   position: sticky;
@@ -182,47 +185,42 @@ body {
 .topbar__link.is-active { color: var(--ink); border-bottom-color: var(--euv); }
 .topbar__link:focus-visible { outline: 3px solid var(--euv); outline-offset: -3px; }
 
-/* >=720px: fixed left rail, markers only */
+/* wider top bar (tablet / small-laptop): centre and space the items out so it
+   doesn't read as the cramped mobile treatment. Padding sized so the full names
+   fit the content width from 720px up (overflow-x:auto stays as a safety net). */
 @media (min-width: 720px) {
+  .topbar__list { justify-content: center; gap: 4px; }
+  .topbar__link { padding: 13px 12px; font-size: 13px; letter-spacing: 0.04em; }
+}
+
+/* >=1200px: fixed left rail with labels, anchored by its RIGHT edge ~16px left
+   of the content. text-left = (100vw-1040)/2 + 40 = 0.5vw - 480, so
+   right:calc(50vw + 496px) sits the rail 16px before it — over the gutter/margin,
+   never over content. */
+@media (min-width: 1200px) {
   .topbar { display: none; }
   .rail {
     display: block;
     position: fixed;
-    /* anchored near the top (matches the masthead's 40px top padding) rather than
-       centred, so the first entry lines up with the masthead rule */
-    top: 40px;
-    /* positioned relative to the content column's left edge: right edge ~28px to
-       its left. Clamped so it hugs the viewport edge when there's no margin. */
-    left: max(10px, calc((100vw - 1040px) / 2 - 42px));
+    top: 40px; /* aligns the first entry with the masthead rule */
+    left: auto;
+    right: calc(50vw + 496px);
     z-index: 40;
     --rail-item: 46px;
   }
   .rail__body { position: relative; }
-  .rail__line {
-    position: absolute;
-    left: 5px;
-    top: 23px;
-    bottom: 23px;
-    width: 1px;
-    background: var(--hairline);
-  }
-  .rail__progress {
-    position: absolute;
-    left: 4px;
-    top: 23px;
-    width: 2px;
-    background: var(--euv);
-  }
+  .rail__line { position: absolute; left: 5px; top: 23px; bottom: 23px; width: 1px; background: var(--hairline); }
+  .rail__progress { position: absolute; left: 4px; top: 23px; width: 2px; background: var(--euv); }
   .rail__list { list-style: none; margin: 0; padding: 0; }
   .rail__li { height: var(--rail-item); }
   .rail__item {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     height: 100%;
+    padding: 0 4px 0 0;
     background: none;
     border: 0;
-    padding: 0;
     cursor: pointer;
   }
   .rail__marker {
@@ -236,41 +234,6 @@ body {
     transition: background 200ms ease, border-color 200ms ease;
   }
   .rail__item.is-active .rail__marker { background: var(--euv); border-color: var(--euv); }
-  .rail__label { display: none; }
-  .rail__item:focus-visible { outline: 3px solid var(--euv); outline-offset: 3px; }
-  .rail__next {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-top: 14px;
-    background: none;
-    border: 0;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--umber);
-    cursor: pointer;
-    padding: 4px 0;
-  }
-  .rail__next-label { display: none; } /* arrow-only when collapsed */
-  .rail__next-arrow { font-size: 13px; width: 11px; text-align: center; }
-  .rail__next:focus-visible { outline: 3px solid var(--euv); outline-offset: 2px; }
-}
-
-/* if the rail is taller than a short viewport, let it scroll with the page
-   instead of clipping (fixed elements can't scroll) */
-@media (min-width: 720px) and (max-height: 560px) {
-  .rail { position: absolute; }
-}
-
-/* >=1200px: rail gains (abbreviated) labels. Anchored by its RIGHT edge to the
-   content's left edge: right edge sits ~16px left of the text/figures, so the rail
-   may sit over the page's left gutter/margin but NEVER over content. Column left
-   edge = (100vw - 1040)/2, text starts +40px gutter, so text-left = 0.5vw - 480;
-   right:calc(50vw + 496px) puts the rail's right edge 16px before it, at any width. */
-@media (min-width: 1200px) {
-  .rail { left: auto; right: calc(50vw + 496px); }
   .rail__label {
     display: inline;
     font-family: var(--font-mono);
@@ -282,8 +245,29 @@ body {
     transition: color 200ms ease;
   }
   .rail__item.is-active .rail__label { color: var(--ink); }
-  .rail__item { gap: 10px; padding-right: 4px; }
-  .rail__next-label { display: inline; }
+  .rail__item:focus-visible { outline: 3px solid var(--euv); outline-offset: 3px; }
+  .rail__next {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    padding: 4px 0;
+    background: none;
+    border: 0;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--umber);
+    cursor: pointer;
+  }
+  .rail__next-arrow { font-size: 13px; width: 11px; text-align: center; }
+  .rail__next:focus-visible { outline: 3px solid var(--euv); outline-offset: 2px; }
+}
+
+/* if the rail is taller than a short viewport, let it scroll with the page */
+@media (min-width: 1200px) and (max-height: 560px) {
+  .rail { position: absolute; }
 }
 
 .skip {

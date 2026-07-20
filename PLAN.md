@@ -277,6 +277,21 @@ one report at 990). Changed the constraint from "rail fits entirely outside the 
 - Verified: labels visible at 1200/1280/1366/1440/1600; gap = 16px at all; no content overlap; no
   horizontal overflow; rail not clipped at the left edge (railLeft ≥ 5px at 1200).
 
+## Stage 6i — One always-labelled nav (top bar + rail) ✅ DONE
+Removed the markers-only rail state entirely; navigation is labelled at every width.
+- **<1200px: sticky top bar with FULL section names.** Centred with comfortable spacing from 720px up
+  (padding/gap tuned so the five full names fit the content width at exactly 720px — 640/640, no
+  clip/scroll); horizontal-scroll fallback on mobile.
+- **≥1200px: fixed left rail with abbreviated labels** (right-edge anchored 16px left of content).
+- The top-bar↔rail switch is at **1200px, not the requested 1040px**, because at ≤1040px the 1040px
+  column fills the viewport with only a 40px gutter — a labelled rail there would overlap the headings
+  (which the no-overlap rule forbids), and widening the gutter was ruled out. The rail needs ~160px of
+  margin, which first appears at ~1200px. Below that the top bar (full names) is the labelled nav — so
+  a 990px laptop now gets the full-name top bar, not markers.
+- `title` + `aria-label` (full "N · Name") added to every rail item, rail marker, and top-bar item.
+- Verified at 390/720/990/1024/1040/1200/1440px: a labelled nav renders at each, no content overlap
+  (rail gap 16px), no horizontal overflow. Nav per width: 390/720/990/1024/1040 → top bar; 1200/1440 → rail.
+
 ## Stage 7 — Deploy + writeup ⏭
 - [ ] Deploy to Vercel or GitHub Pages.
 - [ ] README case-study: the question, the stack, the pipeline, the findings, screenshots.
