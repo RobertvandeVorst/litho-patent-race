@@ -56,7 +56,7 @@ export default function SideRail({ items }) {
   return (
     <>
       {/* desktop / mid: fixed left rail */}
-      <nav className="rail" aria-label="Sections" style={{ '--rail-item': '46px' }}>
+      <nav className="rail" aria-label="Sections" style={{ '--rail-item': '2.875rem' }}>
         <div className="rail__body">
           <span className="rail__line" aria-hidden="true" />
           <span

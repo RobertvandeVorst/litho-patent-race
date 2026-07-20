@@ -20,7 +20,10 @@ export default function FieldOverTime({ euv }) {
 
   const all = euv.overall_all
   const win = euv.window
-  const w = width || 680
+  // /0.8: enlarge the viewBox so the SVG (CSS width:100%) renders its internals
+  // at 80%, matching the rem scaling. The clientX→data map below divides by
+  // rect.width (the rendered width), so it stays correct.
+  const w = (width || 680) / 0.8
   const compact = w < 520
   const h = compact ? Math.round(w * 0.9) : 400
   const m = { top: 24, right: 20, bottom: 40, left: 46 }

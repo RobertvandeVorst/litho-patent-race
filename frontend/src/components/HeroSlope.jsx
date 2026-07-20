@@ -42,7 +42,9 @@ export default function HeroSlope({ pivot }) {
   const players = pivot.players
   const early = players[0].early_years
   const late = players[0].late_years
-  const w = width || 640
+  // /0.8: enlarge the viewBox so the SVG (CSS width:100%) renders its internals
+  // — fonts, margins, height-via-aspect-ratio — at 80%, matching the rem scaling.
+  const w = (width || 640) / 0.8
   const compact = w < 520
   const h = compact ? Math.round(w * 0.95) : 440
   const m = { top: 26, right: compact ? 96 : 132, bottom: 40, left: 44 }

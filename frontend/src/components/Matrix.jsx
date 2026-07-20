@@ -29,9 +29,12 @@ const GC = [0xf1, 0xce, 0x85]
 const EC = [0x21, 0x1a, 0x5e]
 const ramp = (t) => `rgb(${GC.map((g, i) => Math.round(g + (EC[i] - g) * t)).join(',')})`
 
-const LABELW = 158
-const TOTALW = 56
-const MINCOL = 34
+// px geometry, scaled to 0.8 to match the design-wide 80% rem scaling (the
+// table is HTML so it can't inherit the rem root; these track it by hand).
+const LABELW = 126
+const TOTALW = 45
+const MINCOL = 27
+const HEAD_FS = 8.8 // 0.8 × 11
 const RAD = Math.PI / 4 // 45°
 
 export default function Matrix({ network }) {
@@ -43,7 +46,7 @@ export default function Matrix({ network }) {
   const [tip, setTip] = useState(null)
   const [measureRef, contentW] = useMeasure()
   const headRef = useRef(null)
-  const [maxLen, setMaxLen] = useState(170) // measured intrinsic label width (px)
+  const [maxLen, setMaxLen] = useState(136) // measured intrinsic label width (px); 0.8× first-paint guess
 
   const lookup = useMemo(() => {
     const m = new Map()
@@ -129,7 +132,7 @@ export default function Matrix({ network }) {
                   y={headH}
                   textAnchor="start"
                   transform={`rotate(-45 ${cx(i)} ${headH})`}
-                  fontSize="11"
+                  fontSize={HEAD_FS}
                   fontWeight={hover && hover.c === i ? 700 : 400}
                   fill={hover && hover.c === i ? C.euv : C.ink}
                 >
