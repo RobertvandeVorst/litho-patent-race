@@ -1,0 +1,12 @@
+version: 2
+
+sources:
+  - name: raw
+    description: "PatentsView granted-disambiguated tables, pre-filtered to the target CPC subclass and grant-date window by load_duckdb.py."
+    schema: raw
+    tables:
+      - name: patent
+      - name: cpc
+      - name: assignee
+      - name: application
+        description: "Application metadata (filing_date) for the in-scope patents. filing_date can carry mangled years; it is validated in stg_patent."

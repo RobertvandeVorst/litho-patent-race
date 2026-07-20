@@ -1,0 +1,59 @@
+version: 2
+
+models:
+  - name: fct_patent
+    description: "One row per in-scope G03F patent, with its primary player and sub-technology."
+    columns:
+      - name: patent_id
+        tests: [not_null, unique]
+      - name: player
+        tests: [not_null]
+      - name: grant_year
+        tests: [not_null]
+      - name: filing_year
+        description: "Application filing year; null when filing_date was missing/invalid (validated in stg_patent). Nullable by design, so no not_null test."
+      - name: is_euv_title
+        description: "True when the title matches EUV keywords. Biased toward firms that name EUV explicitly."
+        tests: [not_null]
+      - name: is_euv_cpc
+        description: "True when the patent carries an EUV-specific CPC code (G03F7/70033, 7/70175, 1/22, 1/24). Independent of title wording."
+        tests: [not_null]
+      - name: is_euv_any
+        description: "is_euv_title OR is_euv_cpc — the broadest EUV signal."
+        tests: [not_null]
+      - name: player_category
+        description: "Industry role of the primary player."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [Equipment, Materials, Chipmaker, Metrology-EDA, Mask-substrate, Other]
+  - name: dim_player
+    description: "One row per canonical player."
+    columns:
+      - name: player
+        tests: [not_null, unique]
+      - name: player_category
+        tests:
+          - not_null
+          - accepted_values:
+              values: [Equipment, Materials, Chipmaker, Metrology-EDA, Mask-substrate, Other]
+  - name: mart_filings_by_player_year
+    columns:
+      - name: player
+        tests:
+          - relationships:
+              to: ref('dim_player')
+              field: player
+  - name: dim_filing_year
+    description: "One row per filing year with volume, median grant lag, and a completeness flag. is_complete requires the year to clear BOTH bounds: >= the first in-scope grant year (left-censoring) and <= the last year with >=90% of median-year volume (right-censoring)."
+    columns:
+      - name: filing_year
+        tests: [not_null, unique]
+      - name: patents
+        tests: [not_null]
+      - name: is_complete
+        tests: [not_null]
+  - name: mart_player_leaderboard
+    columns:
+      - name: rank
+        tests: [not_null, unique]

@@ -1,0 +1,31 @@
+# raw bulk data (multi-GB, downloaded locally)
+data/raw/*
+!data/raw/.gitkeep
+
+# warehouse + dbt build artifacts (regenerable)
+warehouse/*.duckdb
+dbt/litho/target/
+dbt/litho/dbt_packages/
+dbt/litho/logs/
+
+# secrets
+.env
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# node / frontend build artifacts (regenerable)
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# generated reports (regenerable via scripts/)
+reports/
+
+# spreadsheets in data/
+data/*.xlsx
+
+# OS cruft
+.DS_Store
