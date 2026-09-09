@@ -22,16 +22,6 @@ export default function KeyFindings({ kpis, pivot, leaderboard, euv }) {
 
   const findings = [
     {
-      to: 'field',
-      text: (
-        <>
-          EUV's share of filings grew <b>{mult.toFixed(1)}×</b> across the complete window — from{' '}
-          {pct(early.euv_share_pct)} ({early.years}) to a {pct(peak.euv_share_pct)} peak in{' '}
-          {peak.filing_year}.
-        </>
-      ),
-    },
-    {
       to: 'hero',
       text: (
         <>
@@ -46,6 +36,16 @@ export default function KeyFindings({ kpis, pivot, leaderboard, euv }) {
         <>
           The choice of EUV definition changes the league table — <b>ASML</b> moves from{' '}
           {ordinal(asmlTitleRank)} on the title flag to <b>{ordinal(asmlCpcRank)}</b> on the CPC flag.
+        </>
+      ),
+    },
+    {
+      to: 'field',
+      text: (
+        <>
+          EUV's share of filings grew <b>{mult.toFixed(1)}×</b> across the complete window — from{' '}
+          {pct(early.euv_share_pct)} ({early.years}) to a {pct(peak.euv_share_pct)} peak in{' '}
+          {peak.filing_year}.
         </>
       ),
     },

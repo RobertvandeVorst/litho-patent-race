@@ -29,3 +29,9 @@ data/*.xlsx
 
 # OS cruft
 .DS_Store
+
+# local-only working notes (never committed)
+LOCAL_SETUP.html
+
+# files dropped here by the Claude desktop app
+Claude outputs/
