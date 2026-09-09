@@ -1,4 +1,4 @@
-# The Shrinking Machine — the lithography patent race
+# The lithography patent race
 
 Two decades of the semiconductor **lithography** patent race, reconstructed from real
 USPTO / PatentsView data: **41,321** granted patents in CPC subclass **`G03F`**
